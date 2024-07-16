@@ -1,0 +1,153 @@
+#============Classes
+Prefix rdac: <http://rdaregistry.info/Elements/c/>
+
+#============RDA Entity
+Prefix rdax: <http://rdaregistry.info/Elements/x/>
+Prefix rdaxo: <http://rdaregistry.info/Elements/x/object/>
+Prefix rdaxd: <http://rdaregistry.info/Elements/x/datatype/>
+
+#============Work
+Prefix rdaw: <http://rdaregistry.info/Elements/w/>
+Prefix rdawo: <http://rdaregistry.info/Elements/w/object/>
+Prefix rdawd: <http://rdaregistry.info/Elements/w/datatype/>
+
+#============Expression
+Prefix rdae: <http://rdaregistry.info/Elements/e/>
+Prefix rdaeo: <http://rdaregistry.info/Elements/e/object/>
+Prefix rdaed: <http://rdaregistry.info/Elements/e/datatype/>
+
+#============Manifestation
+Prefix rdam: <http://rdaregistry.info/Elements/m/>
+Prefix rdamo: <http://rdaregistry.info/Elements/m/object/>
+Prefix rdamd: <http://rdaregistry.info/Elements/m/datatype/>
+
+#============Agent
+Prefix rdaa: <http://rdaregistry.info/Elements/a/>
+Prefix rdaao: <http://rdaregistry.info/Elements/a/object/>
+Prefix rdaad: <http://rdaregistry.info/Elements/a/datatype/>
+
+#============Place
+Prefix rdap: <http://rdaregistry.info/Elements/p/>
+Prefix rdapo: <http://rdaregistry.info/Elements/p/object/>
+Prefix rdapd: <http://rdaregistry.info/Elements/p/datatype/>
+
+#============Timespan
+Prefix rdat: <http://rdaregistry.info/Elements/t/>
+Prefix rdato: <http://rdaregistry.info/Elements/t/object/>
+Prefix rdatd: <http://rdaregistry.info/Elements/t/datatype/>
+
+#============Nomen
+Prefix rdan: <http://rdaregistry.info/Elements/n/>
+Prefix rdano: <http://rdaregistry.info/Elements/n/object/>
+Prefix rdand: <http://rdaregistry.info/Elements/n/datatype/>
+
+#============Autres
+Prefix xsd: <http://www.w3.org/2001/XMLSchema>
+Prefix idref: <http://idref.fr/>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+#============Work
+<https://www.sudoc.fr/003448738/work/1> a rdac:C10001 ; # is a work
+rdawo:P10328 <https://www.sudoc.fr/003448738/work/1/nomen/1> ; # has access point for work
+rdawo:P10088 <https://www.sudoc.fr/003448738/work/1/nomen/2> ; # has title of work
+rdawo:P10256 idref:027221350 ; # has subject
+rdawo:P10436 idref:027055094 . # has author person
+
+#============Expression
+<https://www.sudoc.fr/003448738/expression/1> a rdac:C10006 ; # is an expression
+rdaeo:P20312 <https://www.sudoc.fr/003448738/expression/1/nomen/3> ; # has title of expression
+rdaeo:P20310 <https://www.sudoc.fr/003448738/expression/1/nomen/4> ; # has access point for expression
+
+#The source of the code for 181 $c is indicated in $2 and is "rdacontent", which comes from <https://www.loc.gov/standards/valuelist/rdacontent.html, which #itself is derived from the RDA Content Type vocabulary encoding scheme (http://rdaregistry.info/termList/RDAContentType). The code "txt" in rdacontent is #equivalent to the concept <http://rdaregistry.info/termList/RDAContentType/1020.
+
+rdaed:P20006 "fre"^^xsd:string ; # has language of expression
+# alternative solution if transcoding is done : rdae:P20006 <http://id.loc.gov/vocabulary/iso639-2/fre ; # has language of expression
+
+rdaed:P20001 "txt"^^xsd:string ; # has content type
+# alternative solution if transcoding is done : rdae:P20001 <http://rdaregistry.info/termList/RDAContentType/1020 ;
+rdae:P20001 <http://rdaregistry.info/termList/RDAContentType/1020> ; # has content type
+
+rdaeo:P20231 <https://www.sudoc.fr/003448738/work/1> . # has work expressed
+
+#============Manifestion
+<https://www.sudoc.fr/003448738/manifestation> a rdac:C10007 ; # is a manifestation
+rdamo:P30134 <http://www.sudoc.fr/003448738/manifestation/nomen/5> ; # has title of manifestation 
+rdamo:P30276 <http://www.sudoc.fr/003448738/manifestation/nomen/6> ; # has access point for manifestation
+## change from P30266 to P30139
+rdamo:P30139 <https://www.sudoc.fr/003448738/expression/1> ; # has expression manifested
+rdamo:P30004 <https://www.sudoc.fr/003448738/manifestation/nomen/7> ; # has identifier of manifestation (id notice)
+rdamo:P30004 <https://www.sudoc.fr/003448738/manifestation/nomen/8> ; # has identifier for manifestation (ISBN)
+rdamd:P30160 "300 FRF"^^xsd:string ; # has term of availability
+rdamo:P30004 <https://www.sudoc.fr/003448738/manifestation/nomen/9> ; # has identifier of manifestation -- lien pérenne autre
+rdamo:P30004 <https://www.sudoc.fr/003448738/manifestation/nomen/10> ; # has identifier for manifestation -- EAN
+# The UNIMARC notice uses field 210, which does not differentiate between producers, publishers, or distributors in $a, $c or $d. For conversion purposes you # might want to use the RDA elements rdamd:P30279 place of manifestation, rdamd:P30329 creator agent of manifestation, and rdamd:P30278 date of manifestation.
+rdamd:P30279 "Paris"^^xsd:string ; # has place of manifestation
+rdamd:P30278 "1994"^^xsd:gYear ; # has date of manifestation
+rdamd:P30182 "1 vol. (224 p.)"^^xsd:string ; # has extent of manifestation
+#For "rdamd:P30233 "ill. en noir et en coul"^^xsd:string ; # has details of layout", the 215 $c is defined in UNIMARC as other physical details. For a book, #this often meant stating whether the manifestation embodied content that were illustrations. For other carriers, it could be describing physical #characteristics of he manifestation. In other words, trying to map this field to a specific RDA element can be difficult. For this specific case, I would #recommend using rdamd:P30453 illustrative content. But for future conversions, you may want to be conservative and use rdamd:P30137 note on manifestation for #data coded in 215 $c.
+rdamd:P30137 "ill. en noir et en coul"^^xsd:string ; # note on manifestation
+rdamd:P30169 "27 cm"^^xsd:string ; # has dimensions
+rdamd:P30137 "Bibliogr. p. 223. Index"^^xsd:string ; # has note on manifestation
+rdamo:P30083 "Larousse"^^xsd:string ; # has publisher corporate 
+##For the phrase "Impr. en Italie" in $e of the 210, that is a place of manufacture, so you can use rdamd:P30087 place of manufacture as your property. 
+rdamd:P30087 "Impr. en Italie"^^xsd:string; #place of manufacture
+#I also see the UNIMARC notice is coding for the RDA media type in 182 $c (182 .. $6 02 $c n $2 rdamedia). They are using the code that is available from the #MARC21 standard; see <https://www.loc.gov/standards/valuelist/rdamedia.html. Code "n" corresponds to the term "unmediated" from the RDA Media Type vocabulary #encoding scheme (see <https://www.rdaregistry.info/termList/RDAMediaType/ for the list of terms). You may wish to include this in your conversion. You could #do the triple as:
+rdam:P30002 <http://rdaregistry.info/termList/RDAMediaType/1007>; # has media type
+rdamo:P30462 <http://catalogue.bnf.fr/ark:/12148/cb119183495> ; # is manifestation described with metadata by
+rdamd:P30462 "003448738"^^xsd:string . # is manifestation described with metadata by
+#[ a rdf:Statement ;
+#rdf:subject <https://www.sudoc.fr/003448738/manifestation> ;
+#rdf:predicate rdamd:P30462 ;
+#rdf:object "003448738"^^xsd:string # is manifestation described with metadata by;
+#rdawd:P10402 "SUDOC system number"  ]. 
+# voir si on peut utiliser la solution du ISBN avec Damian
+
+
+#============Nomen
+#Defining nomen 1 -- Access Point Work
+<https://www.sudoc.fr/003448738/work/1/nomen/1> a rdac:C10012 ; # is a nomen
+rdand:P80068 "La mer et la vie : chronique de la mer des origines au XXe siècle. Yves Paccalet"^^xsd:string . # has nomen string
+
+#Defining nomen 2 -- Titre Work
+<https://www.sudoc.fr/003448738/work/1/nomen/2> a rdac:C10012 ; # is a nomen
+rdand:P80068 "La mer et la vie : chronique de la mer des origines au XXe siècle"^^xsd:string . # has nomen string
+
+#Defining nomen 3 -- Titre Expression
+<https://www.sudoc.fr/003448738/work/1/nomen/3> a rdac:C10012 ; # is a nomen
+rdand:P80068 "La mer et la vie : chronique de la mer des origines au XXe siècle"^^xsd:string . # has nomen string
+
+#Defining nomen 4 -- Acess point Expression
+<https://www.sudoc.fr/003448738/work/1/nomen/4> a rdac:C10012 ; # is a nomen
+rdand:P80068 "La mer et la vie : chronique de la mer des origines au XXe siècle. Yves Paccalet"^^xsd:string . # has nomen string
+
+#Defining nomen 5 -- Titre Manifestation
+<https://www.sudoc.fr/003448738/work/1/nomen/5> a rdac:C10012 ; # is a nomen
+rdand:P80068 "La mer et la vie : chronique de la mer des origines au XXe siècle"^^xsd:string . # has nomen string
+
+#For the value of nomen 6, you are providing 3 different nomen strings, but this is incorrect. A nomen must have one and only one nomen string associated with #it. From what I can tell, it looks like you want to have the access point in the form of:
+#Title of manifestation. General material designation**. Statement of responsibility.
+# This should be given as one nomen string:
+
+#Defining nomen 6 -- Acess point Manifesttion
+<https://www.sudoc.fr/003448738/work/1/nomen/6> a rdac:C10012 ; # is a nomen
+rdand:P80068 "La mer et la vie : chronique de la mer des origines au XXe siècle. Texte imprimé. Yves Paccalet"^^xsd:string . # has nomen string
+
+
+Defining nomen 7 -- Identifier Manif (ID notice)
+https://www.sudoc.fr/003448738/manifestation/nomen/7> a rdac:C10012 ; # is a nomen
+rdand:P80068 "003448738"^^xsd:string . # has nomen string
+
+#Defining nomen 8 -- Identifier Manif (ISBN)
+<https://www.sudoc.fr/003448738/manifestation/nomen/8> a rdac:C10012 ; # is a nomen
+rdand:P80068 "2-03-505103"^^xsd:string ; # has nomen string
+rdand:P80078 "ISBN"^^xsd:string . # has category of nomen
+
+# replaced by <https://www.sudoc.fr/003448738/manifestation> rdamo:P30462 <http://catalogue.bnf.fr/ark:/12148/cb119183495 . # is manifestation described with metadata by
+#Defining nomen 9 -- URI id autre (ark BnF) Manif
+#https://www.sudoc.fr/003448738/manifestation/nomen/9> rdac:C10012 ; # is a nomen
+#rdan:P80068 "http://catalogue.bnf.fr/ark:/12148/cb119183495"^^xsd:string . # has nomen string
+
+#Defining nomen 10 -- id EAN Manif
+<https://www.sudoc.fr/003448738/manifestation/nomen/10> a rdac:C10012 ; # is a nomen
+rdand:P80068 "9782035051035"^^xsd:string ; # has nomen string
+rdand:P80078 "EAN"^^xsd:string . # has category of nomen
